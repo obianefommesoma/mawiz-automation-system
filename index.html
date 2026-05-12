@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mawiz Automation System | Student Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <script>
+        // Auth Guard
+        const session = JSON.parse(sessionStorage.getItem('mawizSession'));
+        if (!session) {
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div id="userBar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding: 0.5rem 1rem; background: var(--glass-bg); border-radius: 10px; border: 1px solid var(--glass-border);">
+                <span id="welcomeText" style="color: var(--secondary-gold); font-weight: 600;">Welcome, User</span>
+                <button id="logoutBtn" style="width: auto; padding: 0.4rem 1rem; font-size: 0.8rem; background: rgba(231, 76, 60, 0.2); border-color: #e74c3c; color: #e74c3c;">Logout</button>
+            </div>
+            <h1>MAWIZ TECHNOLOGIES LTD</h1>
+            <p>Student Enrollment & Automation Dashboard</p>
+        </header>
+
+        <!-- Stats Overview (Admin Only) -->
+        <div id="adminStats" class="stats-grid" style="display: none;">
+            <div class="stats-card">
+                <span class="stats-value" id="totalStudents">0</span>
+                <span class="stats-label">Total Students</span>
+            </div>
+            <div class="stats-card">
+                <span class="stats-value" id="activeStudents">0</span>
+                <span class="stats-label">Active</span>
+            </div>
+            <div class="stats-card">
+                <span class="stats-value" id="expiredStudents">0</span>
+                <span class="stats-label">Expired</span>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Registration Form Section -->
+            <aside class="card registration-card">
+                <h2>New Registration</h2>
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="studentName">Student Name</label>
+                        <input type="text" id="studentName" placeholder="e.g. John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentId">Student ID</label>
+                        <input type="text" id="studentId" placeholder="e.g. MAWIZ/STU/2024/001" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate">Starting Date</label>
+                        <input type="date" id="startDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">Ending Date</label>
+                        <input type="date" id="endDate" required>
+                    </div>
+                    <button type="submit" id="submitBtn">Register Student</button>
+                </form>
+            </aside>
+
+            <!-- Dashboard Table Section -->
+            <main class="card data-card">
+                <div class="data-header">
+                    <h2>Records</h2>
+                    <div class="filters">
+                        <select id="statusFilter" class="filter-select">
+                            <option value="all">All Status</option>
+                            <option value="active">Active Only</option>
+                            <option value="expired">Expired Only</option>
+                        </select>
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="Search...">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table id="studentTable">
+                        <thead>
+                            <tr>
+                                <th>Student Info</th>
+                                <th>Starting Date</th>
+                                <th>Ending Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTableBody">
+                            <!-- Data will be injected here by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
